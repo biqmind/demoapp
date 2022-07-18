@@ -23,8 +23,8 @@ stages:
 - stage: Build
   displayName: Build and push stage
   jobs:
-  - job: Build adservice 
-    displayName: Build adservice
+  - job: Build_adservice 
+    displayName: Build_adservice
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -37,8 +37,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-  - job: Build currencyservice 
-    displayName: Build currencyservice
+  - job: Build_currencyservice 
+    displayName: Build_currencyservice
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -51,8 +51,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-  - job: Build productcatalogservice 
-    displayName: Build productcatalogservice
+  - job: Build_productcatalogservice 
+    displayName: Build_productcatalogservice
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -65,8 +65,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag) 
-  - job: Build frontend 
-    displayName: Build frontend
+  - job: Build_frontend 
+    displayName: Build_frontend
     pool:
       vmImage: $(vmImageName)
     steps:
