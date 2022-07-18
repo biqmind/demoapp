@@ -1,0 +1,81 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'c5fb7288-0d9d-4fd3-9ebc-39e05134d0e0'
+  imageRepository: 'adservice'
+  containerRegistry: 'capeadodemo.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/adservice-v2/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build adservice 
+    displayName: Build adservice
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push adservice image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+  - job: Build currencyservice 
+    displayName: Build currencyservice
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push adservice image to container registry
+      inputs:
+        command: buildAndPush
+        repository: currencyservice
+        dockerfile: '$(Build.SourcesDirectory)/src/currencyservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+  - job: Build productcatalogservice 
+    displayName: Build productcatalogservice
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push productcatalogservice image to container registry
+      inputs:
+        command: buildAndPush
+        repository: productcatalogservice
+        dockerfile: '$(Build.SourcesDirectory)/src/productcatalogservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag) 
+  - job: Build frontend 
+    displayName: Build frontend
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push frontend image to container registry
+      inputs:
+        command: buildAndPush
+        repository: frontend
+        dockerfile: '$(Build.SourcesDirectory)/src/frontend/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)           
