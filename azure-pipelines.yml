@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: 'c5fb7288-0d9d-4fd3-9ebc-39e05134d0e0'
   imageRepository: 'adservice'
   containerRegistry: 'capeadodemo.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/src/adservice-v2/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/adservice/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
