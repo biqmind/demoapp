@@ -14,7 +14,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: brianpzaide/frontendservice
+          image: capesh/frontendboutiqueshop:latest
           ports:
           - containerPort: 8080
           readinessProbe:
