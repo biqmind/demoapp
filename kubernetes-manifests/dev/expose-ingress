@@ -14,5 +14,5 @@ spec:
             name: frontend
             port:
               number: 80
-        path: /boutique-shop
+        path: /
         pathType: ImplementationSpecific
